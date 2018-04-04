@@ -4,6 +4,9 @@
 enum:
   alert:
     event: FIRST_ENUM
+
+#security:
+#  ignored: /**
 # =============================================================
 # SPRING
 #
@@ -19,35 +22,18 @@ spring:
   datasource:
     platform: postgres
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://XXXXX
-    username: senslog
-    password: senslog
+    url: jdbc:postgresql://localhost:5432
+    username: postgres
+    password: postgres
   jackson:
     serialization:
-      WRITE_DATES_AS_TIMESTAMPS: false
+      WRITE_DATES_AS_TIMESTAMPS: true
 
 # =============================================================
 # SERVER
 #
 server:
-    port: 7777
+    port: 8080
     session:
       cookie:
         unitDesc: UISESSION
-
-#spring.jpa.database=POSTGRESQL
-#spring.jpa.hibernate.ddl-auto=create-drop
-#spring.jpa.show-sql=true
-#spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
-#
-#spring.datasource.platform=postgres
-#spring.datasource.driverClassName=org.postgresql.Driver
-## LOCAL TESTING
-#spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
-#spring.datasource.username=postgres
-#spring.datasource.password=postgres
-
-# =============================================================
-# Tomcat server port
-#
-#server.port=8080

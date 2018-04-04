@@ -10,7 +10,6 @@ import cz.senslog.processing.rest.RestMapping;
 import cz.senslog.model.dto.Observation;
 import cz.senslog.processing.security.UserToken;
 import cz.senslog.processing.util.QueryBuilder;
-import cz.senslog.rest.dto.create.ObservationReceive;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
@@ -56,16 +55,16 @@ public class ObservationController {
      * @return
      */
     @RequestMapping(value = PREFIX_CONTROLLER + RestMapping.PATH_INSERT, method = RequestMethod.POST)
-    public HttpStatus insert(@AuthenticationPrincipal UserToken token,
-                             @RequestBody List<ObservationCreate> observationReceive){
+    public HttpStatus insert(
+                             @AuthenticationPrincipal UserToken token,
+                             @RequestBody List<ObservationCreate> observationCreate
+    ){
 
-        LOGGER.info("> client: {}, observation {} ", token, observationReceive);
+        LOGGER.info("> client: {}, observation {} ", token, observationCreate.toString());
 
-        // TODO: In ObservationCreate here should not  be unit id, because IoT dont care about unit, it want to just send data
-
-        for( ObservationCreate observationToSave : observationReceive){
+        for( ObservationCreate observationToSave : observationCreate){
             SensorEntity sensorEntity = (SensorEntity) sensorRepository.findOne(
-                    SensorById.matchUnitById(observationToSave.getSensor()));
+                    SensorById.matchUnitById(observationToSave.getSensorId()));
 
             // Sensor by specified ID does not exists or is not attached to user Unit
             if( sensorEntity == null ){
@@ -74,7 +73,6 @@ public class ObservationController {
 
             ObservationEntity observationEntity = modelMapper.map(observationToSave, ObservationEntity.class);
             observationEntity.setSensor(sensorEntity);
-//            observationEntity.setTimeReceived(new Timestamp(System.currentTimeMillis()) );
 
             observationRepository.save(observationEntity);
         }

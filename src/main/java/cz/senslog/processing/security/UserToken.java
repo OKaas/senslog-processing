@@ -4,7 +4,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Set;
 
 /**
  * Created by OK on 11/17/2017.
@@ -14,15 +13,13 @@ public class UserToken implements UserDetails {
     public String username;
     public String password;
 
-    public Set<Long> group;
     public Collection<? extends GrantedAuthority> authorities;
 
     public UserToken() {}
 
-    public UserToken(String username, String password, Set<Long> group, Collection<? extends GrantedAuthority> authorities) {
+    public UserToken(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this.username = username;
         this.password = password;
-        this.group = group;
         this.authorities = authorities;
     }
 
@@ -36,14 +33,6 @@ public class UserToken implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Set<Long> getGroup() {
-        return group;
-    }
-
-    public void setGroup(Set<Long> group) {
-        this.group = group;
     }
 
     public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
@@ -84,7 +73,7 @@ public class UserToken implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-    
+
     /* --- Commons  --- */
 
     @Override
@@ -92,7 +81,6 @@ public class UserToken implements UserDetails {
         return "UserToken{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", group=" + group +
                 ", authorities=" + authorities.toString() +
                 '}';
     }

@@ -6,17 +6,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
  * Created by OK on 6/9/2017.
  */
-@SpringBootApplication
-@ComponentScan("cz.hsrs.maplog")
-@EntityScan("cz.senslog.db.model")
-// TODO probably not necessary
-@EnableJpaRepositories("cz.hsrs.maplog.db")
+// Based on senslog-model
+@EntityScan("cz.senslog.model.db")
+@ComponentScan("cz.senslog.processing")
 @PropertySource("application.yml")
+
+@SpringBootApplication
 @EnableAutoConfiguration
 public class Application {
     public static void main(String[] args) {

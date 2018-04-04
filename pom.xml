@@ -17,6 +17,9 @@
     </parent>
 
     <properties>
+
+        <version.cz.senslog.model>1.0.2-SNAPSHOT</version.cz.senslog.model>
+
         <!-- Java -->
         <version.java>1.8</version.java>
         <!-- Maven compiler -->
@@ -55,7 +58,7 @@
         <dependency>
             <groupId>cz.senslog</groupId>
             <artifactId>model</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>${version.cz.senslog.model}</version>
         </dependency>
 
         <!-- Logging -->
@@ -68,12 +71,6 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${version.logback}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>cz.hsrs.maplog</groupId>
-            <artifactId>senslog-model</artifactId>
-            <version>${version.senslog.model}</version>
         </dependency>
 
         <!-- Spring -->
