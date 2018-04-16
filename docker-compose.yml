@@ -1,19 +1,11 @@
 version: "3"
 services:
-  web:
-    # replace username/repo:tag with your name and image details
+  senslog-processing:
     image: senslog-processing
     deploy:
-      replicas: 5
-      resources:
-        limits:
-          cpus: "0.1"
-          memory: 50M
       restart_policy:
         condition: on-failure
     ports:
-      - "80:80"
-    networks:
-      - webnet
-networks:
-  webnet:
+      - "8080:800"
+    env_file:
+      - ./environment.env
