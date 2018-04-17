@@ -6,12 +6,11 @@ import cz.senslog.model.db.EventState;
 import cz.senslog.model.db.UnitEntity;
 import cz.senslog.model.dto.AlertEvent;
 import cz.senslog.model.dto.create.EventCreate;
-import cz.senslog.processing.db.repository.AlertEventRepository;
-import cz.senslog.processing.db.repository.AlertRepository;
+import cz.senslog.processing.db.repository.EventRepository;
+import cz.senslog.processing.db.repository.EventCodeRepository;
 import cz.senslog.processing.db.repository.UnitRepository;
 import cz.senslog.processing.rest.RestMapping;
 import cz.senslog.processing.security.UserToken;
-import cz.senslog.processing.util.QueryBuilder;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
@@ -31,25 +30,22 @@ import java.util.List;
  * Created by OK on 1/21/2018.
  */
 @RestController
-public class AlertEventController {
+public class EventController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AlertEventController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventController.class);
 
-    private final static String PREFIX_CONTROLLER = "/alertEvent";
+    private final static String PREFIX_CONTROLLER = "/event";
     private final static Type LIST_DTO = new TypeToken<List<AlertEvent>>() {}.getType();
     private final static EventState EVENT_CREATE = EventState.UNPROCCESSED;
 
     @Autowired
-    private AlertEventRepository alertEventRepository;
+    private EventRepository eventRepository;
 
     @Autowired
-    private AlertRepository alertRepository;
+    private EventCodeRepository eventCodeRepository;
 
     @Autowired
     private UnitRepository unitRepository;
-
-    @Autowired
-    private QueryBuilder queryBuilder;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -62,25 +58,31 @@ public class AlertEventController {
     @RequestMapping(value = PREFIX_CONTROLLER + RestMapping.PATH_INSERT, method = RequestMethod.POST)
     public HttpStatus insert(
                              @AuthenticationPrincipal UserToken token,
-                             @RequestBody List<EventCreate> alerts
+                             @RequestBody List<EventCreate> events
     ){
-        LOGGER.info("> client: {}, alertReceive {} ", token, alerts);
+        LOGGER.info("> client: {}, alertReceive {} ", token, events);
 
-        for(EventCreate alertEvent : alerts){
+        for(EventCreate event : events){
 
-            UnitEntity unitEntity = unitRepository.findOne(alertEvent.getUnitId());
+            UnitEntity unitEntity = unitRepository.findOne(event.getUnitId());
 
-            if( unitEntity == null ){ return RestMapping.STATUS_BAD_REQUEST; }
+            if( unitEntity == null ){
+                LOGGER.warn("Unit id: \'{}\' does not exists!", event.getUnitId());
+                return RestMapping.STATUS_BAD_REQUEST;
+            }
 
-            EventCodeEntity eventCodeEntity = alertRepository.findOneByCode(alertEvent.getCode());
-            if( eventCodeEntity == null ){ return RestMapping.STATUS_BAD_REQUEST; }
+            EventCodeEntity eventCodeEntity = eventCodeRepository.findOneByCode(event.getCode());
+            if( eventCodeEntity == null ){
+                LOGGER.warn("EventCode: {} does not exists!", event.getCode());
+                return RestMapping.STATUS_BAD_REQUEST;
+            }
 
-            EventEntity eventEntity = modelMapper.map(alertEvent, EventEntity.class);
+            EventEntity eventEntity = modelMapper.map(event, EventEntity.class);
             eventEntity.setEventCode(eventCodeEntity);
             eventEntity.setUnit(unitEntity);
             eventEntity.setState(EVENT_CREATE);
 
-            alertEventRepository.save(eventEntity);
+            eventRepository.save(eventEntity);
         }
 
         return RestMapping.STATUS_CREATED;

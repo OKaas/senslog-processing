@@ -11,12 +11,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 @RepositoryRestResource(collectionResourceRel = "positionn", path = "position")
 public interface PositionRepository extends PagingAndSortingRepository<PositionEntity, Long>, JpaSpecificationExecutor {
-
-    /* --- Collaborates --- */
-
-    /* --- Getters / Setters --- */
-    
-    /* --- Commons  --- */
 }
 
 

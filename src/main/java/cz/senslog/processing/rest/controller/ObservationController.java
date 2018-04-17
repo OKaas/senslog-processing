@@ -3,13 +3,11 @@ package cz.senslog.processing.rest.controller;
 import cz.senslog.model.db.ObservationEntity;
 import cz.senslog.model.db.SensorEntity;
 import cz.senslog.model.dto.create.ObservationCreate;
-import cz.senslog.processing.db.queryspecification.specification.SensorById;
 import cz.senslog.processing.db.repository.ObservationRepository;
 import cz.senslog.processing.db.repository.SensorRepository;
 import cz.senslog.processing.rest.RestMapping;
 import cz.senslog.model.dto.Observation;
 import cz.senslog.processing.security.UserToken;
-import cz.senslog.processing.util.QueryBuilder;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
@@ -43,9 +41,6 @@ public class ObservationController {
     private SensorRepository sensorRepository;
 
     @Autowired
-    private QueryBuilder queryBuilder;
-
-    @Autowired
     private ModelMapper modelMapper;
 
     /* --- REST calls --- */
@@ -63,8 +58,7 @@ public class ObservationController {
         LOGGER.info("> client: {}, observation {} ", token, observationCreate.toString());
 
         for( ObservationCreate observationToSave : observationCreate){
-            SensorEntity sensorEntity = (SensorEntity) sensorRepository.findOne(
-                    SensorById.matchUnitById(observationToSave.getSensorId()));
+            SensorEntity sensorEntity = sensorRepository.findOne(observationToSave.getSensorId());
 
             // Sensor by specified ID does not exists or is not attached to user Unit
             if( sensorEntity == null ){

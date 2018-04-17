@@ -10,10 +10,4 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 @RepositoryRestResource(collectionResourceRel = "sensor", path = "sensor")
 public interface SensorRepository extends PagingAndSortingRepository<SensorEntity, Long>, JpaSpecificationExecutor {
-
-    /* --- Collaborates --- */
-
-    /* --- Getters / Setters --- */
-
-    /* --- Commons  --- */
 }

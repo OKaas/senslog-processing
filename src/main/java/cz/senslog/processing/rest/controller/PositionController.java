@@ -9,15 +9,16 @@ import cz.senslog.processing.db.repository.UnitRepository;
 import cz.senslog.processing.rest.RestMapping;
 import cz.senslog.processing.security.UserToken;
 import cz.senslog.processing.util.Mapper;
-import cz.senslog.processing.util.QueryBuilder;
 import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -37,41 +38,10 @@ public class PositionController {
     private PositionRepository positionRepository;
 
     @Autowired
-    private QueryBuilder queryBuilder;
-
-    @Autowired
     private UnitRepository unitRepository;
 
     @Autowired
     private Mapper modelMapper;
-
-    /* --- GET calls --- */
-
-    /***
-
-     * /position?unitId=
-     *
-     * http://localhost:8080/position
-     *
-     * @return
-     */
-    @RequestMapping(value = PREFIX_CONTROLLER, method = RequestMethod.GET)
-    @ResponseBody
-    public List<Position> getPosition(
-                                      @RequestParam(value = RestMapping.FILTER_CALL, required = false) String filter,
-                                      Pageable pageable){
-
-//        LOGGER.info("\n============\n > userToken: {} \n > filter: {} \n > pageable: {} \n============",
-//                token.toString(), filter, pageable);
-
-        return modelMapper.map(
-                // get only position for unit in user group
-                positionRepository.findAll(
-                        queryBuilder.build(filter),
-                        pageable).getContent(),
-                LIST_DTO
-        );
-    }
 
     /* --- POST CALLS --- */
 
@@ -93,6 +63,7 @@ public class PositionController {
             UnitEntity unitEntity = unitRepository.findOne(toCreate.getUnitId());
 
             if( unitEntity == null ){
+                LOGGER.warn("Unit id: \'{}\' does not exists!", toCreate.getUnitId());
                 return HttpStatus.BAD_REQUEST;
             }
 
