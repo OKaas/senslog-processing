@@ -22,8 +22,8 @@ INSERT INTO sensor(id, description, id_metadata, id_phenomenon, id_unit) VALUES 
 -- TESTING INSERT EVENT
 INSERT INTO enum_item (id, code, description) VALUES (3, 'event.state.unprocessed', 'Unprocessed event');
 INSERT INTO event_code(id, code, description) VALUES (3, 'event_code.event.test', 'event_code.event.test');
-INSERT INTO unit_group (id, description) VALUES (3, 'unit_group.observation.test');
-INSERT INTO unit (id, description, id_unit_group) VALUES (3, 'unit.observation.test', 3);
+INSERT INTO unit_group (id, description) VALUES (3, 'unit_group.event.test');
+INSERT INTO unit (id, description, id_unit_group) VALUES (3, 'unit.event.test', 3);
 -----------------------------------------------------------------------
 
 

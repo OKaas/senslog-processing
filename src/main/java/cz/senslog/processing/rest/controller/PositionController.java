@@ -8,7 +8,7 @@ import cz.senslog.processing.db.repository.PositionRepository;
 import cz.senslog.processing.db.repository.UnitRepository;
 import cz.senslog.processing.rest.RestMapping;
 import cz.senslog.processing.security.UserToken;
-import cz.senslog.processing.util.Mapper;
+import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,7 @@ public class PositionController {
     private UnitRepository unitRepository;
 
     @Autowired
-    private Mapper modelMapper;
+    private ModelMapper modelMapper;
 
     /* --- POST CALLS --- */
 

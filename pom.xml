@@ -18,16 +18,8 @@
 
     <properties>
 
+        <!-- SensLog - model -->
         <version.cz.senslog.model>1.0.2-SNAPSHOT</version.cz.senslog.model>
-
-        <!-- Docker Build -->
-        <docker.port>2375</docker.port>
-        <docker.server.expose>8080</docker.server.expose>
-        <docker.image.name>ab1t/senslog-processing</docker.image.name>
-        <docker.host>http://localhost:${docker.port}</docker.host>
-        <docker.registry>https://index.docker.io/v1/</docker.registry>
-        <docker.baseimage>openjdk:8-jre-alpine</docker.baseimage>
-        <version.maven.docker>0.4.2</version.maven.docker>
 
         <!-- Java -->
         <version.java>1.8</version.java>
@@ -38,8 +30,7 @@
         <version.slf4j>1.7.21</version.slf4j>
         <version.logback>1.1.7</version.logback>
 
-        <!-- SensLog - model -->
-        <version.senslog.model>1.0.0-SNAPSHOT</version.senslog.model>
+
 
         <!-- Database -->
         <version.postgresql.jdbc>9.1-901-1.jdbc4</version.postgresql.jdbc>
@@ -56,6 +47,14 @@
         <version.auth0>1.0.0</version.auth0>
         <version.auth0.api>1.0.0-rc.2</version.auth0.api>
 
+        <!-- Docker Build -->
+        <docker.port>2375</docker.port>
+        <docker.server.expose>8080</docker.server.expose>
+        <docker.image.name>ab1t/senslog-processing</docker.image.name>
+        <docker.host>http://localhost:${docker.port}</docker.host>
+        <docker.registry>https://index.docker.io/v1/</docker.registry>
+        <docker.baseimage>openjdk:8-jre-alpine</docker.baseimage>
+        <version.maven.docker>0.4.2</version.maven.docker>
         <docker.image.prefix>ab1t/senslog-processing</docker.image.prefix>
 
     </properties>
@@ -101,10 +100,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.security.oauth</groupId>-->
-            <!--<artifactId>spring-security-oauth2</artifactId>-->
-        <!--</dependency>-->
 
         <dependency>
             <groupId>org.modelmapper</groupId>
