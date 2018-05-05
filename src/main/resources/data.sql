@@ -1,42 +1,62 @@
 
 -- INPUT DUMMY DATA FOR DEVELOPMENT
 
--- PHENOMENON
+-- TESTING INSERT POSITION
+INSERT INTO phenomenon(id, description, physical_unit) VALUES (1, 'phenomenon.position.test', 'phenomenon.position.test');
+INSERT INTO unit_group (id, description) VALUES (1, 'unit_group.position.test');
+INSERT INTO unit (id, description, id_unit_group) VALUES (1, 'unit.position.test', 1);
 -----------------------------------------------------------------------
-INSERT INTO phenomenon(
-            id, physical_unit, description)
-    VALUES (1, 'dummy_temperature', 'dummy temperature of my brain');
+
+
+-- TESTING INSERT OBSERVATION
+
+INSERT INTO metadata(id, code, description, value) VALUES (2, 'metadata.observation.test', 'metadata.observation.test', 'metadata.observation.test');
+INSERT INTO phenomenon(id, description, physical_unit) VALUES (2, 'phenomenon.observation.test', 'phenomenon.observation.test');
+
+INSERT INTO unit_group (id, description) VALUES (2, 'unit_group.observation.test');
+INSERT INTO unit (id, description, id_unit_group) VALUES (2, 'unit.observation.test', 2);
+
+INSERT INTO sensor(id, description, id_metadata, id_phenomenon, id_unit) VALUES (1, 'sensor.observation.test', 2, 2, 2);
+-----------------------------------------------------------------------
+
+-- TESTING INSERT EVENT
+INSERT INTO enum_item (id, code, description) VALUES (3, 'event.state.unprocessed', 'Unprocessed event');
+INSERT INTO event_code(id, code, description) VALUES (3, 'event_code.event.test', 'event_code.event.test');
+INSERT INTO unit_group (id, description) VALUES (3, 'unit_group.observation.test');
+INSERT INTO unit (id, description, id_unit_group) VALUES (3, 'unit.observation.test', 3);
+-----------------------------------------------------------------------
+
 
 -- HIERARCHY
 -----------------------------------------------------------------------
-INSERT INTO hierarchy(
-            id, name)
-    VALUES (1, 'first hierarchy');
+--INSERT INTO hierarchy(
+--            id, name)
+--    VALUES (1, 'first hierarchy');
 
 
 -- UNIT
 -----------------------------------------------------------------------
-INSERT INTO unit(
-            id, description, id_hierarchy)
-    VALUES ( 1, 'unit test', 1);
+--INSERT INTO unit(
+--            id, description, id_hierarchy)
+--    VALUES ( 1, 'unit test', 1);
 
 -- SENSOR
 -----------------------------------------------------------------------
-INSERT INTO sensor(
-            id, id_phenomenon, id_unit)
-    VALUES (1, 1, 1);
+--INSERT INTO sensor(
+--            id, id_phenomenon, id_unit)
+--    VALUES (1, 1, 1);
 
 -- EventCode
 -----------------------------------------------------------------------
-INSERT INTO event_code(
-            id, code, description)
-    VALUES (1, 'RUNNING', 'heartbeat from unit');
+--INSERT INTO event_code(
+--            id, code, description)
+--    VALUES (1, 'RUNNING', 'heartbeat from unit');
 
 -- USER
 -----------------------------------------------------------------------
-INSERT INTO "user"(
-        id, name, email, password)
-    VALUES (1, 'admin', 'a@b.cz', 'admin');
+--INSERT INTO "user"(
+--        id, name, email, password)
+--    VALUES (1, 'admin', 'a@b.cz', 'admin');
 
 
 

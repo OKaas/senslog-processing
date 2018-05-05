@@ -62,6 +62,7 @@ public class ObservationController {
 
             // Sensor by specified ID does not exists or is not attached to user Unit
             if( sensorEntity == null ){
+                LOGGER.warn("Sensor id: \'{}\' does not exists!", observationToSave.getSensorId());
                 return RestMapping.STATUS_BAD_REQUEST;
             }
 
