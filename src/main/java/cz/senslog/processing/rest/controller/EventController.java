@@ -1,8 +1,8 @@
 package cz.senslog.processing.rest.controller;
 
+import cz.senslog.model.db.EnumEntity;
 import cz.senslog.model.db.EventCodeEntity;
 import cz.senslog.model.db.EventEntity;
-import cz.senslog.model.db.EventState;
 import cz.senslog.model.db.UnitEntity;
 import cz.senslog.model.dto.AlertEvent;
 import cz.senslog.model.dto.create.EventCreate;
@@ -36,7 +36,7 @@ public class EventController {
 
     private final static String PREFIX_CONTROLLER = "/event";
     private final static Type LIST_DTO = new TypeToken<List<AlertEvent>>() {}.getType();
-    private final static EventState EVENT_CREATE = EventState.UNPROCCESSED;
+    private final static String EVENT_CREATE = "event.state.unprocessed";
 
     @Autowired
     private EventRepository eventRepository;
@@ -80,7 +80,7 @@ public class EventController {
             EventEntity eventEntity = modelMapper.map(event, EventEntity.class);
             eventEntity.setEventCode(eventCodeEntity);
             eventEntity.setUnit(unitEntity);
-            eventEntity.setState(EVENT_CREATE);
+//            eventEntity.setState(EVENT_CREATE);
 
             eventRepository.save(eventEntity);
         }
