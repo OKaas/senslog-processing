@@ -4,7 +4,7 @@ import cz.senslog.model.db.EnumItemEntity;
 import cz.senslog.model.db.EventCodeEntity;
 import cz.senslog.model.db.EventEntity;
 import cz.senslog.model.db.UnitEntity;
-import cz.senslog.model.dto.AlertEvent;
+import cz.senslog.model.dto.Event;
 import cz.senslog.model.dto.create.EventCreate;
 import cz.senslog.processing.db.repository.EnumItemRepository;
 import cz.senslog.processing.db.repository.EventRepository;
@@ -37,7 +37,6 @@ public class EventController implements InitializingBean {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventController.class);
 
     private final static String PREFIX_CONTROLLER = "/event";
-    private final static Type LIST_DTO = new TypeToken<List<AlertEvent>>() {}.getType();
     private final static String EVENT_CREATE = "event.state.unprocessed";
     private EnumItemEntity EVENT_UNPROCESSED;
 
