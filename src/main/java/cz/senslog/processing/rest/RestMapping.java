@@ -11,7 +11,7 @@ public class RestMapping {
 //    public static final String PATTERN_TIMESTAMP = "yyyy-MM-dd HH:mi:ss";
     public static final String PATTERN_TIMESTAMP = "yyyy-MM-dd";
 
-    public static final String PATH_INSERT = "/insert";
+    public static final String PATH_INSERT = "/put";
 
     public static final String FILTER_CALL = "filter";
 

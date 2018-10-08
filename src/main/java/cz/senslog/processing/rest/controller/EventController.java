@@ -4,16 +4,14 @@ import cz.senslog.model.db.EnumItemEntity;
 import cz.senslog.model.db.EventCodeEntity;
 import cz.senslog.model.db.EventEntity;
 import cz.senslog.model.db.UnitEntity;
-import cz.senslog.model.dto.Event;
 import cz.senslog.model.dto.create.EventCreate;
 import cz.senslog.processing.db.repository.EnumItemRepository;
-import cz.senslog.processing.db.repository.EventRepository;
 import cz.senslog.processing.db.repository.EventCodeRepository;
+import cz.senslog.processing.db.repository.EventRepository;
 import cz.senslog.processing.db.repository.UnitRepository;
 import cz.senslog.processing.rest.RestMapping;
 import cz.senslog.processing.security.UserToken;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -63,12 +60,12 @@ public class EventController implements InitializingBean {
     }
 
     /***
-     * /alertEvent/insert
+     * PUT event
      *
      * @return
      */
-    @RequestMapping(value = PREFIX_CONTROLLER + RestMapping.PATH_INSERT, method = RequestMethod.POST)
-    public HttpStatus insert(
+    @RequestMapping(value = PREFIX_CONTROLLER, method = RequestMethod.POST)
+    public HttpStatus put(
                              @AuthenticationPrincipal UserToken token,
                              @RequestBody List<EventCreate> events
     ){

@@ -49,8 +49,8 @@ public class ObservationController {
      *
      * @return
      */
-    @RequestMapping(value = PREFIX_CONTROLLER + RestMapping.PATH_INSERT, method = RequestMethod.POST)
-    public HttpStatus insert(
+    @RequestMapping(value = PREFIX_CONTROLLER, method = RequestMethod.POST)
+    public HttpStatus put(
                              @AuthenticationPrincipal UserToken token,
                              @RequestBody List<ObservationCreate> observationCreate
     ){

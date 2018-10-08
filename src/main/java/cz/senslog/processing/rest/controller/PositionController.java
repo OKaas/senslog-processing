@@ -46,12 +46,12 @@ public class PositionController {
     /* --- POST CALLS --- */
 
     /***
-     * position/insert
+     * position/put
      *
      * @return
      */
-    @RequestMapping(value = PREFIX_CONTROLLER + RestMapping.PATH_INSERT, method = RequestMethod.POST)
-    public HttpStatus insertPosition(
+    @RequestMapping(value = PREFIX_CONTROLLER, method = RequestMethod.POST)
+    public HttpStatus put(
                                      @AuthenticationPrincipal UserToken token,
                                      @RequestBody List<PositionCreate> unitPositionCreate
     ){
