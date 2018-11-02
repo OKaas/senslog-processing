@@ -1,4 +1,4 @@
-package cz.senslog.db.repository;
+package cz.senslog.db.controller;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

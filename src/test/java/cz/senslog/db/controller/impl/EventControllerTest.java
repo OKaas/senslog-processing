@@ -1,5 +1,6 @@
-package cz.senslog.db.repository;
+package cz.senslog.db.controller.impl;
 
+import cz.senslog.db.controller.ControllerTestConfiguration;
 import cz.senslog.processing.rest.controller.EventController;
 import cz.senslog.processing.security.UserToken;
 import org.junit.After;
@@ -7,10 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
