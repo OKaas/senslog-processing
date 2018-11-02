@@ -21,46 +21,31 @@
         <!-- SensLog - model -->
         <version.cz.senslog.model>1.0.2-SNAPSHOT</version.cz.senslog.model>
 
-        <!-- Java -->
+        <!-- Java & Maven -->
         <version.java>1.8</version.java>
-        <!-- Maven compiler -->
         <version.maven-compiler-plugin>3.1</version.maven-compiler-plugin>
 
         <!-- Logging -->
         <version.slf4j>1.7.21</version.slf4j>
         <version.logback>1.1.7</version.logback>
 
-
-
         <!-- Database -->
         <version.postgresql.jdbc>9.1-901-1.jdbc4</version.postgresql.jdbc>
+        <version.h2database>1.4.194</version.h2database>
 
         <!-- Spring -->
         <version.spring-starter>1.5.3.RELEASE</version.spring-starter>
         <version.spring-security-web>4.2.3.RELEASE</version.spring-security-web>
+
         <version.model.mapper>0.7.4</version.model.mapper>
-
-        <!-- Commons -->
-        <version.org.apache.commons-lang3>3.7</version.org.apache.commons-lang3>
-
-        <!-- Auth0 -->
-        <version.auth0>1.0.0</version.auth0>
-        <version.auth0.api>1.0.0-rc.2</version.auth0.api>
-
-        <!-- Docker Build -->
-        <docker.port>2375</docker.port>
-        <docker.server.expose>8080</docker.server.expose>
-        <docker.image.name>ab1t/senslog-processing</docker.image.name>
-        <docker.host>http://localhost:${docker.port}</docker.host>
-        <docker.registry>https://index.docker.io/v1/</docker.registry>
-        <docker.baseimage>openjdk:8-jre-alpine</docker.baseimage>
-        <version.maven.docker>0.4.2</version.maven.docker>
-        <docker.image.prefix>ab1t/senslog-processing</docker.image.prefix>
+        <version.fasterxml.jackson.module>2.9.0</version.fasterxml.jackson.module>
+        <version.google.code.fingbugs>3.0.1</version.google.code.fingbugs>
 
     </properties>
 
     <dependencies>
 
+        <!-- SensLog - Data Model -->
         <dependency>
             <groupId>cz.senslog</groupId>
             <artifactId>model</artifactId>
@@ -82,25 +67,14 @@
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
 
+        <!-- Mapping -->
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
@@ -117,23 +91,44 @@
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-jsonSchema</artifactId>
-            <version>2.9.0</version>
+            <version>${version.fasterxml.jackson.module}</version>
         </dependency>
 
-        <!-- Commons -->
+        <!-- Code analysis -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${version.org.apache.commons-lang3}</version>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${version.google.code.fingbugs}</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- Test -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${version.h2database}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -148,64 +143,17 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!-- Compile -->
             <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>${version.maven.docker}</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${version.maven-compiler-plugin}</version>
                 <configuration>
-                    <imageName>${docker.image.name}</imageName>
-                    <dockerHost>${docker.host}</dockerHost>
-
-                    <serverId>docker-hub</serverId>
-                    <registryUrl>${docker.registry}</registryUrl>
-
-                    <forceTags>true</forceTags>
-                    <imageTags>
-                        <imageTag>${project.version}</imageTag>
-                        <imageTag>latest</imageTag>
-                    </imageTags>
-                    <baseImage>${docker.baseimage}</baseImage>
-                    <exposes>
-                        <expose>${docker.server.expose}</expose>
-                    </exposes>
-                    <volumes>
-                        <volume>/tmp</volume>
-                    </volumes>
-                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar", "-Djava.security.egd=file:/dev/./urandom"]</entryPoint>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.basedir}/src/main/resources</directory>
-                            <include>environment.env</include>
-                        </resource>
-                    </resources>
+                    <source>${version.java}</source>
+                    <target>${version.java}</target>
                 </configuration>
             </plugin>
         </plugins>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                </plugin>
-                <!-- Compile -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${version.maven-compiler-plugin}</version>
-                    <configuration>
-                        <source>${version.java}</source>
-                        <target>${version.java}</target>
-                    </configuration>
-                </plugin>
-
-            </plugins>
-        </pluginManagement>
     </build>
 
 </project>

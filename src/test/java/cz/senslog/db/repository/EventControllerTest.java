@@ -1,6 +1,5 @@
 package cz.senslog.db.repository;
 
-import cz.senslog.processing.ApplicationContext;
 import cz.senslog.processing.rest.controller.EventController;
 import cz.senslog.processing.security.UserToken;
 import org.junit.After;
@@ -8,20 +7,23 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
 
 /**
  * Created by OK on 11/19/2017.
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = ApplicationContext.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = ControllerTestConfiguration.class)
 public class EventControllerTest {
 
     @Autowired
-    EventController eventControllerTest;
+    EventController eventController;
 
     UserToken userTokenValid;
     UserToken usetTokenInvalid;
@@ -39,6 +41,7 @@ public class EventControllerTest {
     }
 
     /* --- Method test --- */
+
     @Test
     public void putOne() {
     }
