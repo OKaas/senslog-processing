@@ -2,28 +2,28 @@
 -- INPUT DUMMY DATA FOR DEVELOPMENT
 
 -- TESTING INSERT POSITION
-INSERT INTO phenomenon(id, description, physical_unit) VALUES (1, 'phenomenon.position.test', 'phenomenon.position.test');
-INSERT INTO unit_group (id, description) VALUES (1, 'unit_group.position.test');
-INSERT INTO unit (id, description, id_unit_group) VALUES (1, 'unit.position.test', 1);
------------------------------------------------------------------------
+INSERT INTO phenomenon(id, description, physical_unit) VALUES (1, 'INSERT_UNIT_POSITION_TEST', 'INSERT_UNIT_POSITION_TEST');
+INSERT INTO unit_group (id, description) VALUES (1, 'INSERT_UNIT_POSITION_TEST');
+INSERT INTO unit (id, description, id_unit_group) VALUES (1, 'INSERT_UNIT_POSITION_TEST', 1);
+-------------------------------------------------------------------------
 
 
--- TESTING INSERT OBSERVATION
+---- TESTING INSERT OBSERVATION
 
-INSERT INTO metadata(id, code, description, value) VALUES (2, 'metadata.observation.test', 'metadata.observation.test', 'metadata.observation.test');
-INSERT INTO phenomenon(id, description, physical_unit) VALUES (2, 'phenomenon.observation.test', 'phenomenon.observation.test');
+INSERT INTO sensor_type(id, description) VALUES (2, 'INSERT_OBSERVATION_TEST');
+INSERT INTO phenomenon(id, description, physical_unit) VALUES (2, 'INSERT_OBSERVATION_TEST', 'INSERT_OBSERVATION_TEST');
 
-INSERT INTO unit_group (id, description) VALUES (2, 'unit_group.observation.test');
-INSERT INTO unit (id, description, id_unit_group) VALUES (2, 'unit.observation.test', 2);
+INSERT INTO unit_group (id, description) VALUES (2, 'INSERT_OBSERVATION_TEST');
+INSERT INTO unit (id, description, id_unit_group) VALUES (2, 'INSERT_OBSERVATION_TEST', 2);
 
-INSERT INTO sensor(id, description, id_metadata, id_phenomenon, id_unit) VALUES (1, 'sensor.observation.test', 2, 2, 2);
------------------------------------------------------------------------
+INSERT INTO sensor(id, description, id_sensor_type, id_phenomenon, id_unit) VALUES (1, 'INSERT_OBSERVATION_TEST', 2, 2, 2);
+-------------------------------------------------------------------------
 
 -- TESTING INSERT EVENT
-INSERT INTO enum_item (id, code, description) VALUES (3, 'event.state.unprocessed', 'Unprocessed event');
-INSERT INTO event_code(id, code, description) VALUES (3, 'event_code.event.test', 'event_code.event.test');
-INSERT INTO unit_group (id, description) VALUES (3, 'unit_group.event.test');
-INSERT INTO unit (id, description, id_unit_group) VALUES (3, 'unit.event.test', 3);
+INSERT INTO enum_item (id, code, description) VALUES (3, 'INSERT_EVENT_TEST', 'INSERT_EVENT_TEST');
+INSERT INTO event_status(id, code, description) VALUES (3, 'INSERT_EVENT_TEST', 'INSERT_EVENT_TEST');
+INSERT INTO unit_group (id, description) VALUES (3, 'INSERT_EVENT_TEST');
+INSERT INTO unit (id, description, id_unit_group) VALUES (3, 'INSERT_EVENT_TEST', 3);
 -----------------------------------------------------------------------
 
 

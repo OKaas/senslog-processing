@@ -2,15 +2,14 @@ package cz.senslog.processing.db.repository;
 
 
 import cz.senslog.model.db.PositionEntity;
+import cz.senslog.processing.db.RestRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  * Created by OK on 6/12/2017.
  */
-@RepositoryRestResource(collectionResourceRel = "positionn", path = "position")
-public interface PositionRepository extends PagingAndSortingRepository<PositionEntity, Long>, JpaSpecificationExecutor {
+public interface PositionRepository extends JpaRepository<PositionEntity, Long>, JpaSpecificationExecutor, RestRepository {
 }
 
 

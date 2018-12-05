@@ -1,47 +1,47 @@
 package cz.senslog.processing.rest.controller;
 
 import cz.senslog.model.db.EnumItemEntity;
-import cz.senslog.model.db.EventCodeEntity;
 import cz.senslog.model.db.EventEntity;
+import cz.senslog.model.db.EventStatusEntity;
 import cz.senslog.model.db.UnitEntity;
 import cz.senslog.model.dto.create.EventCreate;
 import cz.senslog.processing.db.repository.EnumItemRepository;
-import cz.senslog.processing.db.repository.EventCodeRepository;
 import cz.senslog.processing.db.repository.EventRepository;
+import cz.senslog.processing.db.repository.EventStatusRepository;
 import cz.senslog.processing.db.repository.UnitRepository;
 import cz.senslog.processing.rest.RestMapping;
-import cz.senslog.processing.security.UserToken;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
  * Created by OK on 1/21/2018.
  */
 @RestController
+@RequestMapping("event")
 public class EventController implements InitializingBean {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EventController.class);
 
-    private final static String PREFIX_CONTROLLER = "/event";
+
     private final static String EVENT_CREATE = "event.state.unprocessed";
-    private EnumItemEntity EVENT_UNPROCESSED;
+    private EventStatusEntity EVENT_UNPROCESSED;
 
     @Autowired
     private EventRepository eventRepository;
 
     @Autowired
-    private EventCodeRepository eventCodeRepository;
+    private EventStatusRepository eventStatusRepository;
 
     @Autowired
     private UnitRepository unitRepository;
@@ -56,20 +56,19 @@ public class EventController implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        EVENT_UNPROCESSED = enumItemRepository.findOneByCode(EVENT_CREATE);
+        EVENT_UNPROCESSED = eventStatusRepository.findOneByCode(EVENT_CREATE);
     }
 
+    /* --- POST calls --- */
+
     /***
-     * PUT event
+     * Post event
      *
      * @return
      */
-    @RequestMapping(value = PREFIX_CONTROLLER, method = RequestMethod.POST)
-    public HttpStatus put(
-                             @AuthenticationPrincipal UserToken token,
-                             @RequestBody List<EventCreate> events
-    ){
-        LOGGER.info("> client: {}, alertReceive {} ", token, events);
+    @PostMapping()
+    public HttpStatus post(@Valid @RequestBody List<EventCreate> events){
+        LOGGER.info("> alertReceive {} ", events);
 
         for(EventCreate event : events){
 
@@ -80,16 +79,16 @@ public class EventController implements InitializingBean {
                 return RestMapping.STATUS_BAD_REQUEST;
             }
 
-            EventCodeEntity eventCodeEntity = eventCodeRepository.findOneByCode(event.getCode());
-            if( eventCodeEntity == null ){
+            EnumItemEntity eventEnum = enumItemRepository.findOneByCode(event.getCode());
+            if( eventEnum == null ){
                 LOGGER.warn("EventCode: {} does not exists!", event.getCode());
                 return RestMapping.STATUS_BAD_REQUEST;
             }
 
             EventEntity eventEntity = modelMapper.map(event, EventEntity.class);
-            eventEntity.setEventCode(eventCodeEntity);
+            eventEntity.setEventStatus(EVENT_UNPROCESSED);
             eventEntity.setUnit(unitEntity);
-            eventEntity.setEnumItem(EVENT_UNPROCESSED);
+            eventEntity.setEnumItem(eventEnum);
 
             eventRepository.save(eventEntity);
         }
@@ -100,7 +99,7 @@ public class EventController implements InitializingBean {
     /* --- Collaborates --- */
 
     /* --- Getters / Setters --- */
-    
+
     /* --- Commons  --- */
 }
 

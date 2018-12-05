@@ -7,19 +7,16 @@ import cz.senslog.model.dto.create.PositionCreate;
 import cz.senslog.processing.db.repository.PositionRepository;
 import cz.senslog.processing.db.repository.UnitRepository;
 import cz.senslog.processing.rest.RestMapping;
-import cz.senslog.processing.security.UserToken;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -27,11 +24,11 @@ import java.util.List;
  * Created by OK on 9/12/2017.
  */
 @RestController
+@RequestMapping("position")
+@Validated
 public class PositionController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionController.class);
-
-    private static final String PREFIX_CONTROLLER = "/position";
     private final static Type LIST_DTO = new TypeToken<List<Position>>() {}.getType();
 
     @Autowired
@@ -50,13 +47,10 @@ public class PositionController {
      *
      * @return
      */
-    @RequestMapping(value = PREFIX_CONTROLLER, method = RequestMethod.POST)
-    public HttpStatus put(
-                                     @AuthenticationPrincipal UserToken token,
-                                     @RequestBody List<PositionCreate> unitPositionCreate
-    ){
+    @PostMapping
+    public HttpStatus post(@Valid @RequestBody List<PositionCreate> unitPositionCreate){
 
-        LOGGER.info("> clientId {}, unitPositionCreate {}", token, unitPositionCreate);
+        LOGGER.info("> unitPositionCreate {}", unitPositionCreate);
 
         for( PositionCreate toCreate : unitPositionCreate ) {
 
@@ -79,7 +73,7 @@ public class PositionController {
     /* --- Collaborates --- */
 
     /* --- Getters / Setters --- */
-    
+
     /* --- Commons  --- */
 }
 

@@ -13,6 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 /**
  * Created by OK on 6/9/2017.
  */
+@Configuration
 @EntityScan("cz.senslog.model.db")
 @ComponentScan("cz.senslog.processing")
 @PropertySource("application.yml")

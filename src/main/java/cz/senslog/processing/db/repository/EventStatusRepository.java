@@ -1,20 +1,22 @@
 package cz.senslog.processing.db.repository;
 
-import cz.senslog.model.db.EnumItemEntity;
+import cz.senslog.model.db.EventStatusEntity;
 import cz.senslog.processing.db.RestRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface EnumItemRepository extends JpaRepository<EnumItemEntity, Long>, JpaSpecificationExecutor, RestRepository {
-
+/**
+ * Created by OK on 6/12/2017.
+ */
+public interface EventStatusRepository extends JpaRepository<EventStatusEntity, Long>, JpaSpecificationExecutor, RestRepository {
 
     /**
-     * Find EnumItem by code
+     * Find EventCode description by code
      *
      * @param code
      * @return
      */
     @Transactional(readOnly = true)
-    EnumItemEntity findOneByCode(String code);
+    EventStatusEntity findOneByCode(String code);
 }

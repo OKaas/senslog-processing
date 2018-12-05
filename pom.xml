@@ -19,7 +19,7 @@
     <properties>
 
         <!-- SensLog - model -->
-        <version.cz.senslog.model>1.0.2-SNAPSHOT</version.cz.senslog.model>
+        <version.cz.senslog.model>1.0.4-SNAPSHOT</version.cz.senslog.model>
 
         <!-- Java & Maven -->
         <version.java>1.8</version.java>
@@ -143,6 +143,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
             </plugin>
 
             <!-- Compile -->
