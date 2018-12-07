@@ -13,13 +13,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.3.RELEASE</version>
+        <version>2.1.0.RELEASE</version>
     </parent>
 
     <properties>
 
         <!-- SensLog - model -->
-        <version.cz.senslog.model>1.0.4-SNAPSHOT</version.cz.senslog.model>
+        <version.cz.senslog.model>1.0.5-SNAPSHOT</version.cz.senslog.model>
 
         <!-- Java & Maven -->
         <version.java>1.8</version.java>
@@ -42,6 +42,10 @@
         <version.spring-starter>1.5.3.RELEASE</version.spring-starter>
         <version.spring-security-web>4.2.3.RELEASE</version.spring-security-web>
 
+        <!-- Encoding -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
     </properties>
 
     <dependencies>
@@ -53,17 +57,7 @@
             <version>${version.cz.senslog.model}</version>
         </dependency>
 
-        <!-- Logging -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${version.slf4j}</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${version.logback}</version>
-        </dependency>
+
 
         <!-- Spring -->
         <dependency>
@@ -129,6 +123,18 @@
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${version.slf4j}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${version.logback}</version>
         </dependency>
     </dependencies>
 

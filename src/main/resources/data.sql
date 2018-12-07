@@ -4,7 +4,7 @@
 -- TESTING INSERT POSITION
 INSERT INTO phenomenon(id, description, physical_unit) VALUES (1, 'INSERT_UNIT_POSITION_TEST', 'INSERT_UNIT_POSITION_TEST');
 INSERT INTO unit_group (id, description) VALUES (1, 'INSERT_UNIT_POSITION_TEST');
-INSERT INTO unit (id, description, id_unit_group) VALUES (1, 'INSERT_UNIT_POSITION_TEST', 1);
+INSERT INTO unit (id, description, unit_group_id) VALUES (1, 'INSERT_UNIT_POSITION_TEST', 1);
 -------------------------------------------------------------------------
 
 
@@ -14,16 +14,16 @@ INSERT INTO sensor_type(id, description) VALUES (2, 'INSERT_OBSERVATION_TEST');
 INSERT INTO phenomenon(id, description, physical_unit) VALUES (2, 'INSERT_OBSERVATION_TEST', 'INSERT_OBSERVATION_TEST');
 
 INSERT INTO unit_group (id, description) VALUES (2, 'INSERT_OBSERVATION_TEST');
-INSERT INTO unit (id, description, id_unit_group) VALUES (2, 'INSERT_OBSERVATION_TEST', 2);
+INSERT INTO unit (id, description, unit_group_id) VALUES (2, 'INSERT_OBSERVATION_TEST', 2);
 
-INSERT INTO sensor(id, description, id_sensor_type, id_phenomenon, id_unit) VALUES (1, 'INSERT_OBSERVATION_TEST', 2, 2, 2);
+INSERT INTO sensor(id, description, sensor_type_id, phenomenon_id, unit_id) VALUES (1, 'INSERT_OBSERVATION_TEST', 2, 2, 2);
 -------------------------------------------------------------------------
 
 -- TESTING INSERT EVENT
 INSERT INTO enum_item (id, code, description) VALUES (3, 'INSERT_EVENT_TEST', 'INSERT_EVENT_TEST');
 INSERT INTO event_status(id, code, description) VALUES (3, 'INSERT_EVENT_TEST', 'INSERT_EVENT_TEST');
 INSERT INTO unit_group (id, description) VALUES (3, 'INSERT_EVENT_TEST');
-INSERT INTO unit (id, description, id_unit_group) VALUES (3, 'INSERT_EVENT_TEST', 3);
+INSERT INTO unit (id, description, unit_group_id) VALUES (3, 'INSERT_EVENT_TEST', 3);
 -----------------------------------------------------------------------
 
 
@@ -43,7 +43,7 @@ INSERT INTO unit (id, description, id_unit_group) VALUES (3, 'INSERT_EVENT_TEST'
 -- SENSOR
 -----------------------------------------------------------------------
 --INSERT INTO sensor(
---            id, id_phenomenon, id_unit)
+--            id, phenomenon_id, unit_id)
 --    VALUES (1, 1, 1);
 
 -- EventCode
