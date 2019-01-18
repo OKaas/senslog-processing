@@ -2,7 +2,6 @@ package cz.senslog.db.controller.impl;
 
 import cz.senslog.db.controller.ControllerTestConfiguration;
 import cz.senslog.processing.rest.controller.EventController;
-import cz.senslog.processing.security.UserToken;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,14 +22,10 @@ public class EventControllerTest {
     @Autowired
     EventController eventController;
 
-    UserToken userTokenValid;
-    UserToken usetTokenInvalid;
-
-
     @Before
     public void setUp(){
-        userTokenValid = new UserToken();
-        userTokenValid.setAuthorities(Arrays.asList());
+//        userTokenValid = new UserToken();
+//        userTokenValid.setAuthorities(Arrays.asList());
     }
 
     @After

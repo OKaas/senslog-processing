@@ -53,7 +53,7 @@ public class ObservationController {
         LOGGER.info("> observation {} ", observationCreate.toString());
 
         for( ObservationCreate observationToSave : observationCreate){
-            SensorEntity sensorEntity = sensorRepository.findOne(observationToSave.getSensorId());
+            SensorEntity sensorEntity = sensorRepository.findById(observationToSave.getSensorId()).orElse(null);
 
             // Sensor by specified ID does not exists or is not attached to user Unit
             if( sensorEntity == null ){

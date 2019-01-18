@@ -35,7 +35,7 @@
         <version.fasterxml.jackson.module>2.9.0</version.fasterxml.jackson.module>
 
         <!-- Database -->
-        <version.postgresql.jdbc>9.1-901-1.jdbc4</version.postgresql.jdbc>
+        <version.postgresql.jdbc>42.2.2</version.postgresql.jdbc>
         <version.h2database>1.4.194</version.h2database>
 
         <!-- Spring -->
@@ -45,6 +45,8 @@
         <!-- Encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+
 
     </properties>
 
@@ -56,8 +58,6 @@
             <artifactId>model</artifactId>
             <version>${version.cz.senslog.model}</version>
         </dependency>
-
-
 
         <!-- Spring -->
         <dependency>
@@ -75,18 +75,18 @@
             <artifactId>modelmapper</artifactId>
             <version>${version.model.mapper}</version>
         </dependency>
-
-        <!-- Database -->
-        <dependency>
-            <groupId>postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${version.postgresql.jdbc}</version>
-        </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-jsonSchema</artifactId>
             <version>${version.fasterxml.jackson.module}</version>
+        </dependency>
+
+
+        <!-- Database -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${version.postgresql.jdbc}</version>
         </dependency>
 
         <!-- Code analysis -->

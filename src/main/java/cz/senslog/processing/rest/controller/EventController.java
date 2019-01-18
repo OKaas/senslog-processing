@@ -72,7 +72,7 @@ public class EventController implements InitializingBean {
 
         for(EventCreate event : events){
 
-            UnitEntity unitEntity = unitRepository.findOne(event.getUnitId());
+            UnitEntity unitEntity = unitRepository.findById(event.getUnitId()).orElse(null);
 
             if( unitEntity == null ){
                 LOGGER.warn("Unit id: \'{}\' does not exists!", event.getUnitId());

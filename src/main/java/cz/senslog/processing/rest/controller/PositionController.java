@@ -54,7 +54,7 @@ public class PositionController {
 
         for( PositionCreate toCreate : unitPositionCreate ) {
 
-            UnitEntity unitEntity = unitRepository.findOne(toCreate.getUnitId());
+            UnitEntity unitEntity = unitRepository.findById(toCreate.getUnitId()).orElse(null);
 
             if( unitEntity == null ){
                 LOGGER.warn("Unit id: \'{}\' does not exists!", toCreate.getUnitId());
