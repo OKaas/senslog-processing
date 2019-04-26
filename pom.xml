@@ -20,7 +20,7 @@
     <properties>
 
         <!-- SensLog - model -->
-        <version.cz.senslog.model>1.0.9-SNAPSHOT</version.cz.senslog.model>
+        <version.cz.senslog.model>1.0.11-SNAPSHOT</version.cz.senslog.model>
 
         <!-- Java & Maven -->
         <version.java>1.8</version.java>
