@@ -10,6 +10,7 @@ import cz.senslog.processing.db.repository.EventRepository;
 import cz.senslog.processing.db.repository.EventStatusRepository;
 import cz.senslog.processing.db.repository.UnitRepository;
 import cz.senslog.processing.rest.RestMapping;
+import io.swagger.annotations.Api;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ import java.util.List;
 /**
  * Created by OK on 1/21/2018.
  */
+@Api( tags = "Event")
 @RestController
 @RequestMapping("event")
 public class EventController implements InitializingBean {
@@ -56,6 +58,9 @@ public class EventController implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
+
+        // TODO: get default values from database
+        // name of table get from system properties / config file then load all
         EVENT_UNPROCESSED = eventStatusRepository.findOneByCode(EVENT_CREATE);
     }
 
@@ -66,8 +71,8 @@ public class EventController implements InitializingBean {
      *
      * @return
      */
-    @PostMapping()
-    public HttpStatus post(@Valid @RequestBody List<EventCreate> events){
+    @PostMapping
+    public HttpStatus post(@RequestBody List<EventCreate> events){
         LOGGER.info("> alertReceive {} ", events);
 
         for(EventCreate event : events){
@@ -97,8 +102,6 @@ public class EventController implements InitializingBean {
     }
 
     /* --- Collaborates --- */
-
-    /* --- Getters / Setters --- */
 
     /* --- Commons  --- */
 }

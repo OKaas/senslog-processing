@@ -7,12 +7,14 @@ import cz.senslog.processing.db.repository.ObservationRepository;
 import cz.senslog.processing.db.repository.SensorRepository;
 import cz.senslog.processing.rest.RestMapping;
 import cz.senslog.model.dto.Observation;
+import io.swagger.annotations.Api;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +27,13 @@ import java.util.List;
 /**
  * Created by OK on 9/12/2017.
  */
+@Api(tags = "Observation")
 @RestController
 @RequestMapping("observation")
+@Validated
 public class ObservationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ObservationController.class);
-    protected Type LIST_DTO = new TypeToken<List<Observation>>() {}.getType();
 
     @Autowired
     private ObservationRepository observationRepository;
@@ -48,7 +51,7 @@ public class ObservationController {
      * @return
      */
     @PostMapping
-    public HttpStatus post(@Valid @RequestBody List<ObservationCreate> observationCreate){
+    public HttpStatus post(@RequestBody List<ObservationCreate> observationCreate){
 
         LOGGER.info("> observation {} ", observationCreate.toString());
 
@@ -69,8 +72,6 @@ public class ObservationController {
 
         return RestMapping.STATUS_CREATED;
     }
-
-    /* --- Collaborates --- */
 
     /* --- Getters / Setters --- */
 

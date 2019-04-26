@@ -7,6 +7,7 @@
     <groupId>cz.senslog</groupId>
     <artifactId>processing</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <name>SensLog - processing</name>
 
@@ -19,7 +20,7 @@
     <properties>
 
         <!-- SensLog - model -->
-        <version.cz.senslog.model>1.0.5-SNAPSHOT</version.cz.senslog.model>
+        <version.cz.senslog.model>1.0.9-SNAPSHOT</version.cz.senslog.model>
 
         <!-- Java & Maven -->
         <version.java>1.8</version.java>
@@ -40,14 +41,10 @@
 
         <!-- Spring -->
         <version.spring-starter>1.5.3.RELEASE</version.spring-starter>
-        <version.spring-security-web>4.2.3.RELEASE</version.spring-security-web>
 
         <!-- Encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-
-
     </properties>
 
     <dependencies>
@@ -67,6 +64,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Mapping -->
@@ -139,6 +141,9 @@
     </dependencies>
 
     <build>
+
+        <finalName>${artifactId}</finalName>
+
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

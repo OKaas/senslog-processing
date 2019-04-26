@@ -7,6 +7,7 @@ import cz.senslog.model.dto.create.PositionCreate;
 import cz.senslog.processing.db.repository.PositionRepository;
 import cz.senslog.processing.db.repository.UnitRepository;
 import cz.senslog.processing.rest.RestMapping;
+import io.swagger.annotations.Api;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
@@ -23,13 +24,13 @@ import java.util.List;
 /**
  * Created by OK on 9/12/2017.
  */
+@Api( tags = "Position")
 @RestController
 @RequestMapping("position")
 @Validated
 public class PositionController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PositionController.class);
-    private final static Type LIST_DTO = new TypeToken<List<Position>>() {}.getType();
 
     @Autowired
     private PositionRepository positionRepository;
@@ -48,7 +49,7 @@ public class PositionController {
      * @return
      */
     @PostMapping
-    public HttpStatus post(@Valid @RequestBody List<PositionCreate> unitPositionCreate){
+    public HttpStatus post(@RequestBody List<PositionCreate> unitPositionCreate){
 
         LOGGER.info("> unitPositionCreate {}", unitPositionCreate);
 
@@ -69,8 +70,6 @@ public class PositionController {
 
         return RestMapping.STATUS_CREATED;
     }
-
-    /* --- Collaborates --- */
 
     /* --- Getters / Setters --- */
 

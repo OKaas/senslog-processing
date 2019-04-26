@@ -1,5 +1,6 @@
 # =============================================================
 # Application properties
+# TODO: Move to database initialization -> at the start of application read it
 #
 enum:
   alert:
@@ -35,7 +36,7 @@ spring:
 # SERVER
 #
 server:
-    port: 8080
+    port: 8090
     session:
       cookie:
         unitDesc: UISESSION
